@@ -34,18 +34,22 @@ class BetplayLeague {
             const teamName = prompt("please insert the name of the team that you would like to add a player to: ");
             if (this.teams.has(teamName)) {
                 const playerName = prompt("Please insert the name of the player: ");
-                const playerNumber = prompt("Please insert the player number: ");
-                const playerPosition = prompt("please insert the player position: ");
+                if (!this.teams.get(teamName)['players'][playerName]) {
+                    const playerNumber = prompt("Please insert the player number: ");
+                    const playerPosition = prompt("please insert the player position: ");
 
-                this.teams.get(teamName)['players'].set(playerName, {
-                    'playerNumber': playerNumber,
-                    'playerPosition': playerPosition,
-                    'playerStatistics': {
-                        'scoredGoals': 0,
-                        'yellowCards': 0,
-                        'redCards': 0,
+                    this.teams.get(teamName)['players'][playerName] = {
+                        'playerNumber': playerNumber,
+                        'playerPosition': playerPosition,
+                        'playerStatistics': {
+                            'scoredGoals': 0,
+                            'yellowCards': 0,
+                            'redCards': 0,
+                        }
                     }
-                })
+                } else {
+                    console.log("This player already exists. Please try again with a different name.")
+                }
             } else {
                 console.log("Sorry. This team does not exist. Please try again.")
             }
@@ -67,7 +71,7 @@ class BetplayLeague {
             console.log("There are no teams in the league. Please add a team and try this again.")
         }
     }
-    addMatch() {    //test this 
+    addMatch() {
         if (this.teams.size > 1) {
             const team1 = prompt("Please insert the name of the first team: ");
             const team2 = prompt("Please insert the name of the second team: ");
@@ -104,19 +108,19 @@ class BetplayLeague {
             console.log("There have to be at least two teams for a match to happen.")
         }
     }
-    addPlayerStatistics() { //test this 
+    addPlayerStatistics() {
         if (this.teams.size > 0) {
             const teamName = prompt("Please insert player's team name: ");
             if (this.teams.has(teamName)) {
                 const playerName = prompt("Please insert the player's name: ")
                 const playerRoute = this.teams.get(teamName)['players'][playerName]['playerStatistics']
-                if (playerRoute){
+                if (playerRoute) {
                     const scoredGoals = Number(prompt("Please insert the player's scored goals: "));
                     const yellowCards = Number(prompt("please insert the player's yellow cards: "));
                     const redCards = Number(prompt("Please inser the player's red cards: "));
-                    playerRoute['scoredGoals']+=scoredGoals;
-                    playerRoute['yellowCards']+=yellowCards;
-                    playerRoute['redCards']+=redCards;
+                    playerRoute['scoredGoals'] += scoredGoals;
+                    playerRoute['yellowCards'] += yellowCards;
+                    playerRoute['redCards'] += redCards;
                     console.log("The information has been added to our records succesfully!")
                 } else {
                     console.log("The inserted player name does not match with our records")
@@ -134,6 +138,12 @@ class BetplayLeague {
 
 
 const league = new BetplayLeague();
+
+
+league.addTeam();
+league.addPlayer();
+league.addPlayer();
+console.log(league.teams.get("millos")['players']);
 
 
 
