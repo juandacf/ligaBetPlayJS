@@ -1,6 +1,6 @@
 var prompt = require('prompt-sync')();
 
-class ligaBetplay {
+class BetplayLeague {
     constructor() {
         this.teams = new Map();
     }
@@ -72,21 +72,33 @@ class ligaBetplay {
             const team1 = prompt("Please insert the name of the first team: ");
             const team2 = prompt("Please insert the name of the second team: ");
             if(this.teams.has(team1) && this.teams.has(team2)){
-                console.log("Both teams exist!!")
+                const scoreTeam1 = prompt(`Please insert the goals scored by ${team1}`);
+                const scoreTeam2 = prompt(`Please insert the goals scored by ${team2}`);
+
+                if(scoreTeam1>scoreTeam2){
+
+                }else if(scoreTeam2>scoreTeam1){
+
+                }else {
+
+                }
+
             } else {
                 console.log("Teams don't match with our records.")
             }
         } else {
             console.log("There have to be at least two teams for a match to happen.")
         }
-    }    
+    } 
+
 }
 
 
-const league = new ligaBetplay();
+const league = new BetplayLeague();
 
-league.addTeam()
-
+league.addTeam();
+league.addTeam();
+league.addMatch();
 
 
 
